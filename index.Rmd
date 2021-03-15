@@ -1,0 +1,127 @@
+---
+title: "Museums"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+   
+---
+
+
+## Hello :) ! 
+
+This report is for checking for free&discounted admission to museums around New York City listd in  [colombia arts initiative](https://artsinitiative.columbia.edu/museums/). The operation hours, contact information and other details in location are from [ google](https://www.google.com/).
+*just for practice
+
+
+
+```{r setup, include=FALSE}
+library(leaflet)
+library(tidyverse)
+library(rvest)
+library(httr)
+library(Amelia)
+library(reprex)
+
+library(flextable)
+library(magrittr)
+```
+
+```{r,include=FALSE}
+url="https://artsinitiative.columbia.edu/museums/"
+museum_name=read_html(url)
+```
+
+```{r,include=FALSE}
+title_vec=
+  museum_name %>% 
+  html_nodes(css=".elementor-accordion-title") %>% 
+  html_text()
+```
+
+```{r,include=FALSE}
+location_vec=
+  museum_name %>% 
+  html_nodes(css="p > strong") %>% 
+  html_text()
+```
+
+
+```{r,include=FALSE}
+museum_crude = 
+  read_csv("./museum_time_4.csv") %>% 
+  janitor::clean_names() 
+
+skimr::skim(museum_crude)
+missmap(museum_crude, main = "Missing values vs observed")
+```
+
+## Map of the Museums
+```{r,echo=FALSE}
+museum_crude %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(~long,~lat,popup= ~as.character(rate),label=~museum)
+```
+Î
+```{r,echo=FALSE}
+pal<- colorNumeric("viridis",museum_crude %>% pull(rate))
+museum_crude %>% 
+  leaflet() %>% 
+  addProviderTiles(providers$CartoDB.Positron)%>% 
+  addCircleMarkers(~long,~lat,radius=1,popup= ~as.character(rate),color=~ pal(rate),label=~museum)
+
+```
+
+## Top 10 rated museums: 
+
+```{r,echo=FALSE,message = FALSE}
+top_10=
+museum_crude %>%
+arrange(desc(rate))%>%
+  select(museum,rate,status)%>%
+  head(10)
+top_10 %>% regulartable() %>% autofit() 
+
+```
+## Top 10 most reviewed museums: 
+
+```{r,echo=FALSE,message = FALSE}
+top_10=
+museum_crude %>%
+arrange(desc(comment))%>%
+  select(museum,comment,rate,status)%>%
+  head(10)
+top_10 %>% regulartable() %>% autofit() 
+
+```
+
+## Current opening during the Pandemic
+
+```{r,echo=FALSE, }
+open=
+  museum_crude %>%
+  filter(status=="Open")%>%
+  arrange(desc(rate))%>%
+  select(museum,status,rate,location,comment)
+open %>% regulartable() %>% autofit() 
+
+```
+
+
+## Operation time and current status for each museum and contact information(ordered by rate):
+
+```{r,echo=FALSE}
+contact=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  select(museum,status,open,closed,phone,web)
+knitr::kable(contact)
+
+```
+
+
+## Link to fast look-ups:
+
+Here is a fast look up link to get options: [Week-Week](week-week.html)
+

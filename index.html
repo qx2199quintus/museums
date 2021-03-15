@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Museums</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<link href="site_libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Museums</h1>
+
+</div>
+
+
+<div id="hello" class="section level2">
+<h2>Hello :) !</h2>
+<p>This report is for checking for free&amp;discounted admission to museums around New York City listd in <a href="https://artsinitiative.columbia.edu/museums/">colombia arts initiative</a>. The operation hours, contact information and other details in location are from <a href="https://www.google.com/">google</a>. *just for practice</p>
+</div>
+<div id="map-of-the-museums" class="section level2">
+<h2>Map of the Museums</h2>
+<p><div id="htmlwidget-3c22eeddb0d6dead13c9" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c22eeddb0d6dead13c9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[40.7315585304291,40.8318742322785,40.8650575086535,40.7933213418522,40.718170176424,40.7796640561876,40.7061324760916,40.8031176479339,40.7457057157588,40.7734268013883,40.7701444113224,40.7856633590989,40.7494777431839,40.7616033332541,40.7669754937245,40.7460147147768,40.7685504068492,40.81724641197,40.7965234666189,40.7526400188359,40.7607124885467,40.8148064159036,40.8137114269766,40.6950051422609,40.804767527957,40.7351499604111,40.7646565953295,40.6905885206697],[-74.0160565365114,-73.9195307386337,-73.9317917752286,-73.9514706754508,-73.988665244767,-73.9631689005857,-74.0184721005883,-73.9689376294206,-73.9473098870943,-73.9814553931693,-73.9644127312725,-73.9572261159287,-73.9814400177807,-73.9776323312728,-73.9380753601085,-73.8467192024376,-73.9368290638098,-73.9588087331216,-73.9493569889432,-73.9682870024374,-73.9774521294222,-73.9409796466142,-73.9544215064141,-73.9924049736036,-73.9380107735996,-73.9877641889454,-73.9996612466159,-73.9897863582605],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["4.3","4.4","4.7","4.4","4.5","4.8","4.6","4.8","4.4","4.3","4.4","4.4","4.7","4.6","4.7","4.4","4.3","4.6","4.7","4.6","4.5","4.6","4.4","4.6","4.7","4.4","4.6","4.6"],null,null,null,["The American Numismatic Society","The Bronx Museum of the Arts","The Met Cloisters","El Museo del Barrio","International Center of Photography","The Metropolitan Museum of Art","Museum of Jewish Heritage","Nicholas Roerich Museum","MoMA PS1","American Folk Art Museum","Asia Society Museum","The Jewish Museum","The Morgan Library &amp; Museum","Museum of Modern Art (MoMA)","The Noguchi Museum","Queens Museum","Socrates Sculpture Park","The Miriam and Ira D. Wallach Gallery","The Africa Center","Japan Society","The Paley Center for Media","Schomburg Center for Research in Black Culture","Studio Museum in Harlem","Center for Brooklyn History","Caribbean Cultural Center African Diaspora Institute","Goethe-Institut","Intrepid Sea, Air &amp; Space Museum","New York Transit Museum"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.6905885206697,40.8650575086535],"lng":[-74.0184721005883,-73.8467192024376]}},"evals":[],"jsHooks":[]}</script> Î <div id="htmlwidget-70905323392312d724de" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-70905323392312d724de">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[40.7315585304291,40.8318742322785,40.8650575086535,40.7933213418522,40.718170176424,40.7796640561876,40.7061324760916,40.8031176479339,40.7457057157588,40.7734268013883,40.7701444113224,40.7856633590989,40.7494777431839,40.7616033332541,40.7669754937245,40.7460147147768,40.7685504068492,40.81724641197,40.7965234666189,40.7526400188359,40.7607124885467,40.8148064159036,40.8137114269766,40.6950051422609,40.804767527957,40.7351499604111,40.7646565953295,40.6905885206697],[-74.0160565365114,-73.9195307386337,-73.9317917752286,-73.9514706754508,-73.988665244767,-73.9631689005857,-74.0184721005883,-73.9689376294206,-73.9473098870943,-73.9814553931693,-73.9644127312725,-73.9572261159287,-73.9814400177807,-73.9776323312728,-73.9380753601085,-73.8467192024376,-73.9368290638098,-73.9588087331216,-73.9493569889432,-73.9682870024374,-73.9774521294222,-73.9409796466142,-73.9544215064141,-73.9924049736036,-73.9380107735996,-73.9877641889454,-73.9996612466159,-73.9897863582605],1,null,null,{"interactive":true,"className":"","stroke":true,"color":["#440154","#414487","#7AD151","#414487","#2A788E","#FDE725","#22A884","#FDE725","#414487","#440154","#414487","#414487","#7AD151","#22A884","#7AD151","#414487","#440154","#22A884","#7AD151","#22A884","#2A788E","#22A884","#414487","#22A884","#7AD151","#414487","#22A884","#22A884"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#440154","#414487","#7AD151","#414487","#2A788E","#FDE725","#22A884","#FDE725","#414487","#440154","#414487","#414487","#7AD151","#22A884","#7AD151","#414487","#440154","#22A884","#7AD151","#22A884","#2A788E","#22A884","#414487","#22A884","#7AD151","#414487","#22A884","#22A884"],"fillOpacity":0.2},null,null,["4.3","4.4","4.7","4.4","4.5","4.8","4.6","4.8","4.4","4.3","4.4","4.4","4.7","4.6","4.7","4.4","4.3","4.6","4.7","4.6","4.5","4.6","4.4","4.6","4.7","4.4","4.6","4.6"],null,["The American Numismatic Society","The Bronx Museum of the Arts","The Met Cloisters","El Museo del Barrio","International Center of Photography","The Metropolitan Museum of Art","Museum of Jewish Heritage","Nicholas Roerich Museum","MoMA PS1","American Folk Art Museum","Asia Society Museum","The Jewish Museum","The Morgan Library &amp; Museum","Museum of Modern Art (MoMA)","The Noguchi Museum","Queens Museum","Socrates Sculpture Park","The Miriam and Ira D. Wallach Gallery","The Africa Center","Japan Society","The Paley Center for Media","Schomburg Center for Research in Black Culture","Studio Museum in Harlem","Center for Brooklyn History","Caribbean Cultural Center African Diaspora Institute","Goethe-Institut","Intrepid Sea, Air &amp; Space Museum","New York Transit Museum"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.6905885206697,40.8650575086535],"lng":[-74.0184721005883,-73.8467192024376]}},"evals":[],"jsHooks":[]}</script></p>
+</div>
+<div id="top-10-rated-museums" class="section level2">
+<h2>Top 10 rated museums:</h2>
+<template id="cb6fc583-c967-428a-a8e9-ffe21af60af8"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-bf33bc36{border-collapse:collapse;}.cl-bf2db296{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bf2dc6dc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf2dc6f0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf2e0034{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0048{width:115.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0052{width:274.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e005c{width:274.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0066{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0067{width:115.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0070{width:115.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e007a{width:274.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0084{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e008e{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e008f{width:274.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e0098{width:115.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e00a2{width:274.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e00ac{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf2e00b6{width:115.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bf33bc36'><thead><tr style="overflow-wrap:break-word;"><td class="cl-bf2e00a2"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">museum</span></p></td><td class="cl-bf2e00ac"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">rate</span></p></td><td class="cl-bf2e00b6"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">status</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Metropolitan Museum of Art</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.8</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Nicholas Roerich Museum</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.8</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Met Cloisters</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.7</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Morgan Library &amp; Museum</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.7</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Noguchi Museum</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.7</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e007a"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Africa Center</span></p></td><td class="cl-bf2e0084"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.7</span></p></td><td class="cl-bf2e0070"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Temporarily Closed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e007a"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Caribbean Cultural Center African Diaspora Institute</span></p></td><td class="cl-bf2e0084"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.7</span></p></td><td class="cl-bf2e0070"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Temporarily Closed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e008f"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Museum of Jewish Heritage</span></p></td><td class="cl-bf2e008e"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.6</span></p></td><td class="cl-bf2e0098"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e0052"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Museum of Modern Art (MoMA)</span></p></td><td class="cl-bf2e0034"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.6</span></p></td><td class="cl-bf2e0048"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf2e005c"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">The Miriam and Ira D. Wallach Gallery</span></p></td><td class="cl-bf2e0066"><p class="cl-bf2dc6f0"><span class="cl-bf2db296">4.6</span></p></td><td class="cl-bf2e0067"><p class="cl-bf2dc6dc"><span class="cl-bf2db296">Open</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="0ab20d58-7ccf-4597-a588-0db57950f51d"></div>
+<script>
+var dest = document.getElementById("0ab20d58-7ccf-4597-a588-0db57950f51d");
+var template = document.getElementById("cb6fc583-c967-428a-a8e9-ffe21af60af8");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+</div>
+<div id="top-10-most-reviewed-museums" class="section level2">
+<h2>Top 10 most reviewed museums:</h2>
+<template id="e415ab84-74d3-47a0-93d7-a6aee89dcf4e"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-bf499ac4{border-collapse:collapse;}.cl-bf443372{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bf444100{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf44411e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf447742{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf447756{width:54.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf447760{width:189.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf44776a{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf447774{width:189.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf44777e{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf447788{width:54.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf447792{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf44779c{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf44779d{width:189.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477a6{width:54.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477b0{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477ba{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477bb{width:189.3pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477c4{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477ce{width:54.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477d8{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477d9{width:189.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477e2{width:54.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf4477ec{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bf499ac4'><thead><tr style="overflow-wrap:break-word;"><td class="cl-bf4477d9"><p class="cl-bf444100"><span class="cl-bf443372">museum</span></p></td><td class="cl-bf4477d8"><p class="cl-bf44411e"><span class="cl-bf443372">comment</span></p></td><td class="cl-bf4477ec"><p class="cl-bf44411e"><span class="cl-bf443372">rate</span></p></td><td class="cl-bf4477e2"><p class="cl-bf444100"><span class="cl-bf443372">status</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">The Metropolitan Museum of Art</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">60,822</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.8</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">Museum of Modern Art (MoMA)</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">33,482</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.6</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">Intrepid Sea, Air &amp; Space Museum</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">27,689</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.6</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">The Met Cloisters</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">4,865</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.7</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf44779d"><p class="cl-bf444100"><span class="cl-bf443372">New York Transit Museum</span></p></td><td class="cl-bf4477b0"><p class="cl-bf44411e"><span class="cl-bf443372">3,752</span></p></td><td class="cl-bf44779c"><p class="cl-bf44411e"><span class="cl-bf443372">4.6</span></p></td><td class="cl-bf4477a6"><p class="cl-bf444100"><span class="cl-bf443372">Closed</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">The Morgan Library &amp; Museum</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">3,042</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.7</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">MoMA PS1</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">2,175</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.4</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447760"><p class="cl-bf444100"><span class="cl-bf443372">Queens Museum</span></p></td><td class="cl-bf447742"><p class="cl-bf44411e"><span class="cl-bf443372">2,029</span></p></td><td class="cl-bf44776a"><p class="cl-bf44411e"><span class="cl-bf443372">4.4</span></p></td><td class="cl-bf447756"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf4477bb"><p class="cl-bf444100"><span class="cl-bf443372">Museum of Jewish Heritage</span></p></td><td class="cl-bf4477c4"><p class="cl-bf44411e"><span class="cl-bf443372">1,556</span></p></td><td class="cl-bf4477ba"><p class="cl-bf44411e"><span class="cl-bf443372">4.6</span></p></td><td class="cl-bf4477ce"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf447774"><p class="cl-bf444100"><span class="cl-bf443372">Socrates Sculpture Park</span></p></td><td class="cl-bf44777e"><p class="cl-bf44411e"><span class="cl-bf443372">1,455</span></p></td><td class="cl-bf447792"><p class="cl-bf44411e"><span class="cl-bf443372">4.3</span></p></td><td class="cl-bf447788"><p class="cl-bf444100"><span class="cl-bf443372">Open</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="40fbfb96-d83c-4dd4-819b-5ab5fe13449f"></div>
+<script>
+var dest = document.getElementById("40fbfb96-d83c-4dd4-819b-5ab5fe13449f");
+var template = document.getElementById("e415ab84-74d3-47a0-93d7-a6aee89dcf4e");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+</div>
+<div id="current-opening-during-the-pandemic" class="section level2">
+<h2>Current opening during the Pandemic</h2>
+<template id="88da1a10-cabb-46ff-8c0f-ec227185af71"><style>
+.tabwid table{
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-spacing: 0;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-bf62c166{border-collapse:collapse;}.cl-bf5cbabe{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bf5cc7de{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf5cc7f2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bf5d08fc{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0910{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d091a{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0924{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d092e{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d092f{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0938{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0942{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d094c{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d094d{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0956{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0960{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d096a{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d096b{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0974{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d097e{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0988{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0989{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d0992{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d099c{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d099d{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09a6{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09a7{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09b0{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09ba{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09c4{width:638.2pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09c5{width:207pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09ce{width:49.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09d8{width:39.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bf5d09e2{width:65.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bf62c166'><thead><tr style="overflow-wrap:break-word;"><td class="cl-bf5d09c5"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">museum</span></p></td><td class="cl-bf5d09ce"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">status</span></p></td><td class="cl-bf5d09d8"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">rate</span></p></td><td class="cl-bf5d09c4"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">location</span></p></td><td class="cl-bf5d09e2"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">comment</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Metropolitan Museum of Art</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.8</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">1000 Fifth Avenue (at 82nd Street)<br>New York, NY 10028</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">60,822</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Nicholas Roerich Museum</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.8</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">319 West 107th Street<br>New York, NY 10025</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">193</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Met Cloisters</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.7</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Fort Tryon Park,New York, NY 10040</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4,865</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Morgan Library &amp; Museum</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.7</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">225 Madison Avenue (between 36th and 37th Streets)<br>New York, NY 10016</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">3,042</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d0974"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Noguchi Museum</span></p></td><td class="cl-bf5d0956"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d096a"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.7</span></p></td><td class="cl-bf5d0960"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">32-37 Vernon Boulevard<br>Long Island City, NY 11106</span></p></td><td class="cl-bf5d096b"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">818</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d09ba"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Museum of Jewish Heritage</span></p></td><td class="cl-bf5d09b0"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d09a6"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d09a7"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">36 Battery Place<br>New York, NY 10280</span></p></td><td class="cl-bf5d099d"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">1,556</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Museum of Modern Art (MoMA)</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">1000 Fifth Avenue (at 82nd Street),New York, NY 10028</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">33,482</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d092f"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Miriam and Ira D. Wallach Gallery</span></p></td><td class="cl-bf5d094c"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0942"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d0938"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">lenfest Center for the Arts<br>615 West 129th Street<br>New York, NY 10027</span></p></td><td class="cl-bf5d094d"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">82</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d092f"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Japan Society</span></p></td><td class="cl-bf5d094c"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0942"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d0938"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">333 East 47th Street<br>New York, NY 10017</span></p></td><td class="cl-bf5d094d"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d092f"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Center for Brooklyn History</span></p></td><td class="cl-bf5d094c"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0942"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d0938"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">128 Pierrepont St, Brooklyn, NY 11201</span></p></td><td class="cl-bf5d094d"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">376</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Intrepid Sea, Air &amp; Space Museum</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.6</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Pier 86, W 46th St, New York, NY 10036</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">27,689</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d0974"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">International Center of Photography</span></p></td><td class="cl-bf5d0956"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d096a"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.5</span></p></td><td class="cl-bf5d0960"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">79 Essex Street<br>New York, NY 10002</span></p></td><td class="cl-bf5d096b"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">79</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Bronx Museum of the Arts</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">1040 Grand Concourse,Bronx, NY 10456</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">1,087</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">El Museo del Barrio</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">1230 Fifth Avenue (between 104th and 105th street),1230 Fifth Avenue (between 104th and 105th street)<br>New York, NY 10029</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">651</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d0974"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">MoMA PS1</span></p></td><td class="cl-bf5d0956"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d096a"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d0960"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">22-25 Jackson Ave<br>Long Island City, NY 11101</span></p></td><td class="cl-bf5d096b"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">2,175</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d092f"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Asia Society Museum</span></p></td><td class="cl-bf5d094c"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0942"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d0938"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">725 Park Avenue (between E 70th and 71st Streets</span></p></td><td class="cl-bf5d094d"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">337</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">The Jewish Museum</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">1109 5th Avenue (at 92nd Street)<br>New York, NY 10128</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">1,242</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d0974"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Queens Museum</span></p></td><td class="cl-bf5d0956"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d096a"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.4</span></p></td><td class="cl-bf5d0960"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">New York City Building Flushing Meadows Corona Park Queens, NY 1136</span></p></td><td class="cl-bf5d096b"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">2,029</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d08fc"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">American Folk Art Museum</span></p></td><td class="cl-bf5d092e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0924"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.3</span></p></td><td class="cl-bf5d091a"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">2 Lincoln Square (Columbus Avenue at 66th Street) New York, NY 10023</span></p></td><td class="cl-bf5d0910"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">446</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bf5d0992"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Socrates Sculpture Park</span></p></td><td class="cl-bf5d099c"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">Open</span></p></td><td class="cl-bf5d0988"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">4.3</span></p></td><td class="cl-bf5d097e"><p class="cl-bf5cc7de"><span class="cl-bf5cbabe">32-01 Vernon Boulevard at Broadway<br>Long Island City, NY 11106</span></p></td><td class="cl-bf5d0989"><p class="cl-bf5cc7f2"><span class="cl-bf5cbabe">1,455</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="34507973-e562-4b3e-a6c9-31061021578e"></div>
+<script>
+var dest = document.getElementById("34507973-e562-4b3e-a6c9-31061021578e");
+var template = document.getElementById("88da1a10-cabb-46ff-8c0f-ec227185af71");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+</div>
+<div id="operation-time-and-current-status-for-each-museum-and-contact-informationordered-by-rate" class="section level2">
+<h2>Operation time and current status for each museum and contact information(ordered by rate):</h2>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="11%" />
+<col width="5%" />
+<col width="5%" />
+<col width="7%" />
+<col width="37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">museum</th>
+<th align="left">status</th>
+<th align="left">open</th>
+<th align="left">closed</th>
+<th align="right">phone</th>
+<th align="left">web</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">The Metropolitan Museum of Art</td>
+<td align="left">Open</td>
+<td align="left">10:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12125357710</td>
+<td align="left"><a href="https://www.metmuseum.org/" class="uri">https://www.metmuseum.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Nicholas Roerich Museum</td>
+<td align="left">Open</td>
+<td align="left">00:00:00</td>
+<td align="left">16:00:00</td>
+<td align="right">16464374202</td>
+<td align="left"><a href="http://mjhnyc.org/" class="uri">http://mjhnyc.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">The Met Cloisters</td>
+<td align="left">Open</td>
+<td align="left">10:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12129233700</td>
+<td align="left"><a href="https://www.metmuseum.org/visit/plan-your-visit/met-cloisters" class="uri">https://www.metmuseum.org/visit/plan-your-visit/met-cloisters</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Morgan Library &amp; Museum</td>
+<td align="left">Open</td>
+<td align="left">10:30:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12126850008</td>
+<td align="left"><a href="http://www.themorgan.org/" class="uri">http://www.themorgan.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">The Noguchi Museum</td>
+<td align="left">Open</td>
+<td align="left">11:00:00</td>
+<td align="left">18:00:00</td>
+<td align="right">17182047088</td>
+<td align="left"><a href="http://www.noguchi.org/" class="uri">http://www.noguchi.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Africa Center</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">08:00:00</td>
+<td align="left">21:00:00</td>
+<td align="right">12124449795</td>
+<td align="left"><a href="http://theafricacenter.org/" class="uri">http://theafricacenter.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Caribbean Cultural Center African Diaspora Institute</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">12123077420</td>
+<td align="left"><a href="http://www.cccadi.org/" class="uri">http://www.cccadi.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Museum of Jewish Heritage</td>
+<td align="left">Open</td>
+<td align="left">10:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">16464374202</td>
+<td align="left"><a href="http://mjhnyc.org/" class="uri">http://mjhnyc.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Museum of Modern Art (MoMA)</td>
+<td align="left">Open</td>
+<td align="left">10:30:00</td>
+<td align="left">17:30:00</td>
+<td align="right">12127089400</td>
+<td align="left"><a href="https://www.moma.org/" class="uri">https://www.moma.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Miriam and Ira D. Wallach Gallery</td>
+<td align="left">Open</td>
+<td align="left">00:00:00</td>
+<td align="left">18:00:00</td>
+<td align="right">12128546800</td>
+<td align="left"><a href="https://wallach.columbia.edu/" class="uri">https://wallach.columbia.edu/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Japan Society</td>
+<td align="left">Open</td>
+<td align="left">11:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12128321155</td>
+<td align="left"><a href="http://www.japansociety.org/" class="uri">http://www.japansociety.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Schomburg Center for Research in Black Culture</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">19172756975</td>
+<td align="left"><a href="http://www.nypl.org/locations/schomburg" class="uri">http://www.nypl.org/locations/schomburg</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Center for Brooklyn History</td>
+<td align="left">Open</td>
+<td align="left">10:00:00</td>
+<td align="left">16:00:00</td>
+<td align="right">17182224111</td>
+<td align="left"><a href="http://www.brooklynhistory.org/" class="uri">http://www.brooklynhistory.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Intrepid Sea, Air &amp; Space Museum</td>
+<td align="left">Open</td>
+<td align="left">10:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12122450072</td>
+<td align="left"><a href="http://www.intrepidmuseum.org/" class="uri">http://www.intrepidmuseum.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">New York Transit Museum</td>
+<td align="left">Closed</td>
+<td align="left">10:00:00</td>
+<td align="left">16:00:00</td>
+<td align="right">17186941600</td>
+<td align="left"><a href="http://www.nytransitmuseum.org/" class="uri">http://www.nytransitmuseum.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">International Center of Photography</td>
+<td align="left">Open</td>
+<td align="left">09:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12128570001</td>
+<td align="left"><a href="http://www.icp.org/" class="uri">http://www.icp.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">The Paley Center for Media</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">00:00:00</td>
+<td align="left">18:00:00</td>
+<td align="right">12126216600</td>
+<td align="left"><a href="http://www.paleycenter.org/" class="uri">http://www.paleycenter.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Bronx Museum of the Arts</td>
+<td align="left">Open</td>
+<td align="left">13:00:00</td>
+<td align="left">18:00:00</td>
+<td align="right">17186816000</td>
+<td align="left"><a href="http://www.bronxmuseum.org/" class="uri">http://www.bronxmuseum.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">El Museo del Barrio</td>
+<td align="left">Open</td>
+<td align="left">00:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12128317272</td>
+<td align="left"><a href="http://www.elmuseo.org/" class="uri">http://www.elmuseo.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">MoMA PS1</td>
+<td align="left">Open</td>
+<td align="left">00:00:00</td>
+<td align="left">18:00:00</td>
+<td align="right">17187842084</td>
+<td align="left"><a href="https://www.moma.org/ps1" class="uri">https://www.moma.org/ps1</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Asia Society Museum</td>
+<td align="left">Open</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">12122886400</td>
+<td align="left"><a href="http://asiasociety.org/new-york" class="uri">http://asiasociety.org/new-york</a></td>
+</tr>
+<tr class="even">
+<td align="left">The Jewish Museum</td>
+<td align="left">Open</td>
+<td align="left">11:00:00</td>
+<td align="left">16:00:00</td>
+<td align="right">12124233200</td>
+<td align="left"><a href="http://www.thejewishmuseum.org/" class="uri">http://www.thejewishmuseum.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Queens Museum</td>
+<td align="left">Open</td>
+<td align="left">00:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">17185929700</td>
+<td align="left"><a href="http://www.queensmuseum.org/" class="uri">http://www.queensmuseum.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Studio Museum in Harlem</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">12128644500</td>
+<td align="left"><a href="https://www.studiomuseum.org/" class="uri">https://www.studiomuseum.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Goethe-Institut</td>
+<td align="left">Temporarily Closed</td>
+<td align="left">09:00:00</td>
+<td align="left">17:00:00</td>
+<td align="right">12124398700</td>
+<td align="left"><a href="http://www.goethe.de/newyork" class="uri">http://www.goethe.de/newyork</a></td>
+</tr>
+<tr class="even">
+<td align="left">The American Numismatic Society</td>
+<td align="left">Closed</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">12125714470</td>
+<td align="left"><a href="http://www.numismatics.org/" class="uri">http://www.numismatics.org/</a></td>
+</tr>
+<tr class="odd">
+<td align="left">American Folk Art Museum</td>
+<td align="left">Open</td>
+<td align="left">11:30:00</td>
+<td align="left">18:00:00</td>
+<td align="right">12125959533</td>
+<td align="left"><a href="http://www.folkartmuseum.org/" class="uri">http://www.folkartmuseum.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Socrates Sculpture Park</td>
+<td align="left">Open</td>
+<td align="left">09:00:00</td>
+<td align="left">17:45:00</td>
+<td align="right">17189561819</td>
+<td align="left"><a href="http://www.socratessculpturepark.org/" class="uri">http://www.socratessculpturepark.org/</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="link-to-fast-look-ups" class="section level2">
+<h2>Link to fast look-ups:</h2>
+<p>Here is a fast look up link to get options: <a href="week-week.html">Week-Week</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

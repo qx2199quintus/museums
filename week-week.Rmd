@@ -1,0 +1,117 @@
+---
+title: "Week-Week"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+   
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(leaflet)
+library(tidyverse)
+library(rvest)
+library(httr)
+library(Amelia)
+library(reprex)
+library(flextable)
+library(magrittr)
+
+```
+
+```{r,include=FALSE}
+museum_crude = 
+  read_csv("./museum_time_4.csv") %>% 
+  janitor::clean_names() 
+
+skimr::skim(museum_crude)
+missmap(museum_crude, main = "Missing values vs observed")
+```
+
+
+# Operation for each day :)
+
+## Monday:
+```{r,echo=FALSE}
+mon=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(mon==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(mon)
+```
+
+## Tuesday:
+```{r,echo=FALSE}
+tue=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(tue==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(tue)
+```
+
+
+## Wednesday:
+
+```{r,echo=FALSE}
+wed=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(wed==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(wed)
+```
+
+
+## Thursday:
+```{r,echo=FALSE}
+thur=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(thur==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(thur)
+```
+
+
+
+## Friday:
+```{r,echo=FALSE}
+fri=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(fri==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(fri)
+```
+
+
+## Saturaday:
+```{r,echo=FALSE}
+sat=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(sat==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(sat)
+```
+
+## Sunday:
+
+```{r,echo=FALSE}
+sun=
+  museum_crude %>%
+  arrange(desc(rate))%>%
+  filter(sun==1)%>%
+  select(museum,status,open,closed,phone,web,notes)
+ knitr::kable(sun)
+```
+
+
+
+
+
+

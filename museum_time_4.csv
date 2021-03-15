@@ -1,0 +1,47 @@
+Museum,Lat,Long,Status,Location ,Open,Closed,Rate,Phone,Web,Notes,Mon,Tue,Wed,Thur,Fri,Sat,Sun,Comment
+The American Numismatic Society ,40.7315585304291,-74.0160565365114,Closed,"75 Varick St, Floor 11
+New York, NY 10013",NA,NA,4.3,12125714470,http://www.numismatics.org/,NA,NA,NA,NA,NA,NA,NA,NA,9
+The Bronx Museum of the Arts ,40.8318742322785,-73.9195307386337,Open,"1040 Grand Concourse,Bronx, NY 10456",1:00 PM,6:00 PM,4.4,17186816000,http://www.bronxmuseum.org/,"Mon,Tue Closed",0,0,1,1,1,1,1,1087
+The Met Cloisters,40.8650575086535,-73.9317917752286,Open,"Fort Tryon Park,New York, NY 10040",10:00 AM,5:00 PM,4.7,12129233700,https://www.metmuseum.org/visit/plan-your-visit/met-cloisters,"Tues,Wed Closed",1,0,0,1,1,1,1,4865
+El Museo del Barrio ,40.7933213418522,-73.9514706754508,Open,"1230 Fifth Avenue (between 104th and 105th street),1230 Fifth Avenue (between 104th and 105th street)
+New York, NY 10029",12:00 AM,5:00 PM,4.4,12128317272,http://www.elmuseo.org/,"Only open on Sat,Sun",0,0,0,0,0,1,1,651
+International Center of Photography ,40.718170176424,-73.988665244767,Open,"79 Essex Street
+New York, NY 10002",9:00 AM,5:00 PM,4.5,12128570001,http://www.icp.org/,Open Mon-Fri,1,1,1,1,1,0,0,79
+The Metropolitan Museum of Art ,40.7796640561876,-73.9631689005857,Open,"1000 Fifth Avenue (at 82nd Street)
+New York, NY 10028",10:00 AM,5:00 PM,4.8,12125357710,https://www.metmuseum.org/,"Tue,Wed Closed",1,0,0,1,1,1,1,60822
+Museum of Jewish Heritage ,40.7061324760916,-74.0184721005883,Open,"36 Battery Place
+New York, NY 10280",10:00 AM,5:00 PM,4.6,16464374202,http://mjhnyc.org/,"Mon,Tue,Fri Closed",0,0,1,1,0,1,1,1556
+Nicholas Roerich Museum ,40.8031176479339,-73.9689376294206,Open,"319 West 107th Street
+New York, NY 10025",12:00 AM,4:00 PM,4.8,16464374202,http://mjhnyc.org/,"Mon Closed, &Closed at 15:00pm on weekends",0,1,1,1,1,1,1,193
+MoMA PS1,40.7457057157588,-73.9473098870943,Open,"22-25 Jackson Ave
+Long Island City, NY 11101",12:00 AM,6:00 PM,4.4,17187842084,https://www.moma.org/ps1,Closed 20:00pm on Sat,1,0,0,1,1,1,1,2175
+American Folk Art Museum ,40.7734268013883,-73.9814553931693,Open,"2 Lincoln Square (Columbus Avenue at 66th Street) New York, NY 10023",11:30 AM,6:00 PM,4.3,12125959533,http://www.folkartmuseum.org/,"Mon,Tue Closed",0,0,1,1,1,1,1,446
+Asia Society Museum,40.7701444113224,-73.9644127312725,Open,725 Park Avenue (between E 70th and 71st Streets,NA,NA,4.4,12122886400,http://asiasociety.org/new-york,NA,NA,NA,NA,NA,NA,NA,NA,337
+The Jewish Museum,40.7856633590989,-73.9572261159287,Open,"1109 5th Avenue (at 92nd Street)
+New York, NY 10128",11:00 AM,4:00 PM,4.4,12124233200,http://www.thejewishmuseum.org/,"Mon,Tue,Wed Closed,The Cooper Shop is closed on Saturdays",0,0,0,1,1,1,1,1242
+The Morgan Library & Museum,40.7494777431839,-73.9814400177807,Open,"225 Madison Avenue (between 36th and 37th Streets)
+New York, NY 10016",10:30 AM,5:00 PM,4.7,12126850008,http://www.themorgan.org/,"Mon,Tue Closed,10:30 to 11:30 a.m. on Wed and 4:00 to 5:00 p.m. on Sat are reserved for members",0,0,1,1,1,1,1,3042
+Museum of Modern Art (MoMA),40.7616033332541,-73.9776323312728,Open,"1000 Fifth Avenue (at 82nd Street),New York, NY 10028",10:30 AM,5:30 PM,4.6,12127089400,https://www.moma.org/,Open whole week,1,1,1,1,1,1,1,33482
+The Noguchi Museum,40.7669754937245,-73.9380753601085,Open,"32-37 Vernon Boulevard
+Long Island City, NY 11106",11:00 AM,6:00 PM,4.7,17182047088,http://www.noguchi.org/,"Mon,Tue Closed,Hours,Wed–Sun 11 am–2 pm, 3–6 pm",0,0,1,1,1,1,1,818
+Queens Museum ,40.7460147147768,-73.8467192024376,Open,"New York City Building Flushing Meadows Corona Park Queens, NY 1136",12:00 AM,5:00 PM,4.4,17185929700,http://www.queensmuseum.org/,"Mon,Tue Closed,Sat Sun 11am-5pm",0,0,1,1,1,1,1,2029
+Socrates Sculpture Park,40.7685504068492,-73.9368290638098,Open,"32-01 Vernon Boulevard at Broadway
+Long Island City, NY 11106",9:00 AM,5:45 PM,4.3,17189561819,http://www.socratessculpturepark.org/,Opens whole week,1,1,1,1,1,1,1,1455
+The Miriam and Ira D. Wallach Gallery,40.81724641197,-73.9588087331216,Open,"lenfest Center for the Arts
+615 West 129th Street
+New York, NY 10027",12:00 AM,6:00 PM,4.6,12128546800,https://wallach.columbia.edu/,Closed Saturdays through Tuesdays,0,0,1,1,1,0,0,82
+The Africa Center,40.7965234666189,-73.9493569889432,Temporarily Closed,1280 Fifth Avenue (at 109th Street),8:00 AM,9:00 PM,4.7,12124449795,http://theafricacenter.org/,"Monday, Closed,Tuesday—Thursday, 8am—7pm; Friday, 8am—9pm;Saturday, 9am—9pm; Sunday, 9am—7pm",0,1,1,1,1,1,1,63
+Japan Society,40.7526400188359,-73.9682870024374,Open,"333 East 47th Street
+New York, NY 10017",11:00 AM,5:00 PM,4.6,12128321155,http://www.japansociety.org/,"Mon,Tue,Wed Closed",0,0,0,1,1,1,1,NA
+The Paley Center for Media,40.7607124885467,-73.9774521294222,Temporarily Closed,"25 W 52nd Street (between 5th and 6th Avenues)
+New York, NY 10019",12:00 AM,6:00 PM,4.5,12126216600,http://www.paleycenter.org/,"Mon,Tue Closed",0,0,1,1,1,1,1,404
+Schomburg Center for Research in Black Culture,40.8148064159036,-73.9409796466142,Temporarily Closed,"515 Malcolm X Boulevard (at 135th Street)
+New York, NY 10037",NA,NA,4.6,19172756975,http://www.nypl.org/locations/schomburg,NA,NA,NA,NA,NA,NA,NA,NA,99
+Studio Museum in Harlem,40.8137114269766,-73.9544215064141,Temporarily Closed,"429 West 127th Street
+New York, NY 10027",NA,NA,4.4,12128644500,https://www.studiomuseum.org/,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Center for Brooklyn History ,40.6950051422609,-73.9924049736036,Open,"128 Pierrepont St, Brooklyn, NY 11201",10:00 AM,4:00 PM,4.6,17182224111,http://www.brooklynhistory.org/,Only open lobby service,1,1,1,1,1,1,1,376
+Caribbean Cultural Center African Diaspora Institute,40.804767527957,-73.9380107735996,Temporarily Closed,"120 East 125th Street (between Park Ave and Lexington Ave) New York, NY 10035",NA,NA,4.7,12123077420,http://www.cccadi.org/,NA,NA,NA,NA,NA,NA,NA,NA,81
+Goethe-Institut,40.7351499604111,-73.9877641889454,Temporarily Closed,"30 Irving Place
+New York, NY 10003",9:00 AM,5:00 PM,4.4,12124398700,http://www.goethe.de/newyork,Closed on Sat and Sun,1,1,1,1,1,0,0,18
+"Intrepid Sea, Air & Space Museum",40.7646565953295,-73.9996612466159,Open,"Pier 86, W 46th St, New York, NY 10036",10:00 AM,5:00 PM,4.6,12122450072,http://www.intrepidmuseum.org/,"Reopen on March,25th, open Thur through Sun.",0,0,0,1,1,1,1,27689
+New York Transit Museum ,40.6905885206697,-73.9897863582605,Closed,"99 Schermerhorn St, Brooklyn, NY 11201",10:00 AM,4:00 PM,4.6,17186941600,http://www.nytransitmuseum.org/,"Sat,Sun opens 11:00am -17:00pm,closed on Mon",0,NA,1,1,1,1,1,3752
